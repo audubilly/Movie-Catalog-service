@@ -29,7 +29,7 @@ public class MovieCatalogResource {
     @RequestMapping("/{userId}")
     public List<CatalogDetails> getCatalog(@PathVariable("userId") String userId) {
 
-        UserRatings userRatings = restTemplate.getForObject("http://localhost:8083/ratingData/users/" + userId, UserRatings.class);
+        UserRatings userRatings = restTemplate.getForObject("http://ratings-data-service/ratingData/users/" + userId, UserRatings.class);
 //        UserRatings userRatings = webClientBuilder.build()
 //                .get()
 //                .uri("http://localhost:8083/ratingData/users/\" + userId")
@@ -41,7 +41,7 @@ public class MovieCatalogResource {
 
                     Movie movie = webClientBuilder.build()
                             .get()
-                            .uri("http://localhost:8082/movies/\" + rating.getMovieId()")
+                            .uri("http://movie-info-service/movies/\" + rating.getMovieId()")
                             .retrieve()
                             .bodyToMono(Movie.class)
                             .block();
